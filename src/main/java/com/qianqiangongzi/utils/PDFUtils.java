@@ -14,6 +14,9 @@ import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.events.Event;
+import com.itextpdf.kernel.events.IEventHandler;
+import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
@@ -268,20 +271,40 @@ public class PDFUtils {
 	public static final void addWatermark(String srcPdfPath, String destPdfPath)
 			throws FileNotFoundException, IOException {
 		PdfDocument pdfDoc = new PdfDocument(new PdfReader(srcPdfPath), new PdfWriter(destPdfPath));
-		int number = pdfDoc.getNumberOfPages();
-		for (int i = 1; i <= number; i++) {
-			PdfPage page = pdfDoc.getPage(i);
-			PdfFont font = null;
-			try {
-				font = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
-			} catch (IOException e) {
-				e.printStackTrace();
+		
+		pdfDoc.addEventHandler(PdfDocumentEvent.END_PAGE, new IEventHandler() {
+			@Override
+			public void handleEvent(Event event) {
+				PdfDocumentEvent docEvent = (PdfDocumentEvent) event;
+				PdfDocument pdfDoc = docEvent.getDocument();
+				PdfPage page = docEvent.getPage();
+				PdfFont font = null;
+				try {
+					font = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				PdfCanvas canvas = new PdfCanvas(page.newContentStreamBefore(), page.getResources(), pdfDoc);
+				new Canvas(canvas, pdfDoc, page.getPageSize()).setFontColor(ColorConstants.LIGHT_GRAY).setFontSize(60)
+						.setFont(font).showTextAligned(new Paragraph("WATERMARK"), 298, 421, pdfDoc.getPageNumber(page),
+								TextAlignment.CENTER, VerticalAlignment.MIDDLE, 45);
 			}
-			PdfCanvas canvas = new PdfCanvas(page.newContentStreamBefore(), page.getResources(), pdfDoc);
-			new Canvas(canvas, pdfDoc, page.getPageSize()).setFontColor(ColorConstants.LIGHT_GRAY).setFontSize(60)
-					.setFont(font).showTextAligned(new Paragraph("WATERMARK"), 298, 421, pdfDoc.getPageNumber(page),
-							TextAlignment.CENTER, VerticalAlignment.MIDDLE, 45);
-		}
+		});
+		
+//		int number = pdfDoc.getNumberOfPages();
+//		for (int i = 1; i <= number; i++) {
+//			PdfPage page = pdfDoc.getPage(i);
+//			PdfFont font = null;
+//			try {
+//				font = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//			PdfCanvas canvas = new PdfCanvas(page.newContentStreamBefore(), page.getResources(), pdfDoc);
+//			new Canvas(canvas, pdfDoc, page.getPageSize()).setFontColor(ColorConstants.LIGHT_GRAY).setFontSize(60)
+//					.setFont(font).showTextAligned(new Paragraph("WATERMARK"), 298, 421, pdfDoc.getPageNumber(page),
+//							TextAlignment.CENTER, VerticalAlignment.MIDDLE, 45);
+//		}
 		pdfDoc.close();
 	}
 
