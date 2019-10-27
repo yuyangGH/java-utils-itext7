@@ -1,0 +1,16 @@
+server.port: 8080
+spring:
+  application.name: spring-boot-activiti-integration
+  servlet.multipart.maxFileSize: -1
+  servlet.multipart.maxRequestSize: -1
+logging:
+  level.root: INFO
+  level.springfox.documentation.spring.web: WARN
+  level.org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping: WARN
+  level.org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: WARN
+  level.springfox.documentation.spring.web.readers.parameter.ParameterDataTypeReader: ERROR
+  level.org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener: WARN
+  file: logs/activitiIntegration.log
+swagger.show: true
+spring.jackson.date-format: yyyy-MM-dd HH:mm:ss
+spring.jackson.time-zone: GMT+8
