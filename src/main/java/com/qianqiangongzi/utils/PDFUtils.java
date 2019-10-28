@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.forms.fields.PdfFormField;
+import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -24,8 +25,10 @@ import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfReader;
+import com.itextpdf.kernel.pdf.PdfResources;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.kernel.pdf.extgstate.PdfExtGState;
 import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
@@ -46,8 +49,6 @@ public class PDFUtils {
 	public static final float rightMargin = 20;// 右边距
 	public static final float bottomMargin = 20;// 下边距
 	public static final float leftMargin = 20;// 左边距
-
-	public static final int fontSize = 14; // 默认字体大小
 
 	/**
 	 * 获取默认字体
@@ -124,7 +125,7 @@ public class PDFUtils {
 		params.put("${heritage_id_card}", "522229199612455562");
 		params.put("${heritage_cltural_degree}", "博士");
 		params.put("${heritage_occupation}", "杂技与竞技");
-		params.put("${heritage_job_title}", "杂技与竞技博主");
+		params.put("${heritage_job_title}", "杂技与竞技博主哈哈哈哈");
 		params.put("${heritage_contact_phone}", "13686422282");
 		params.put("${heritage_email}", "646125978@qq.com");
 		params.put("${heritage_communication_address}", "广东省深圳市福田区大庆大厦#深圳市智骏数据科技有限公司");
@@ -153,20 +154,19 @@ public class PDFUtils {
 		params.put("${heritage_AFP_four_phone_number}", "13686422284");
 		params.put("${heritage_AFP_four_description}",
 				"图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4图片描述4");
-		params.put("${heritage_authorization_letter}",
-				"这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信这是一封信");
 		// 头像及附件图片
-		params.put("${heritage_AFP_one}", "4|D:/test/20191027/1.jpg");
-		params.put("${heritage_AFP_two}", "5|D:/test/20191027/2.jpg");
-		params.put("${heritage_AFP_three}", "6|D:/test/20191027/3.jpg");
-		params.put("${heritage_AFP_four}", "7|D:/test/20191027/4.jpg");
-		params.put("${heritage_photo}", "2|D:/test/20191027/5.jpg");
+		params.put("${heritage_photo}", "2|D:/test/20191027/1.jpg");
+		params.put("${heritage_AFP_one}", "4|D:/test/20191027/2.jpg");
+		params.put("${heritage_AFP_two}", "5|D:/test/20191027/3.jpg");
+		params.put("${heritage_AFP_three}", "6|D:/test/20191027/4.jpg");
+		params.put("${heritage_AFP_four}", "7|D:/test/20191027/5.jpg");
+		params.put("${heritage_authorization_letter}", "8|D:/test/20191027/6.jpg");
 		return params;
 	}
 
 	// 图片域
 	private static final List<String> imageFields = Arrays.asList("${heritage_AFP_one}", "${heritage_AFP_two}",
-			"${heritage_AFP_three}", "${heritage_AFP_four}", "${heritage_photo}");
+			"${heritage_AFP_three}", "${heritage_AFP_four}", "${heritage_photo}", "${heritage_authorization_letter}");
 
 	/**
 	 * 替换PDF表单域变量
@@ -193,7 +193,7 @@ public class PDFUtils {
 				if (imageFields.contains(param)) {// 替换图片
 					replaceFieldImage(params, pdf, param, formField);
 				} else {// 替换文本域
-					formField.setValue(params.get(param), getDefaultFont(), fontSize);
+					formField.setFont(getDefaultFont()).setValue(params.get(param));
 				}
 			}
 			form.flattenFields();// 锁定表单，不让修改
@@ -271,7 +271,7 @@ public class PDFUtils {
 	public static final void addWatermark(String srcPdfPath, String destPdfPath)
 			throws FileNotFoundException, IOException {
 		PdfDocument pdfDoc = new PdfDocument(new PdfReader(srcPdfPath), new PdfWriter(destPdfPath));
-		
+
 		pdfDoc.addEventHandler(PdfDocumentEvent.END_PAGE, new IEventHandler() {
 			@Override
 			public void handleEvent(Event event) {
@@ -284,85 +284,69 @@ public class PDFUtils {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				PdfCanvas canvas = new PdfCanvas(page.newContentStreamBefore(), page.getResources(), pdfDoc);
+//				PdfCanvas canvas = new PdfCanvas(page.newContentStreamBefore(), page.getResources(), pdfDoc);
+				PdfCanvas canvas = new PdfCanvas(page);
+				PdfExtGState gs1 = new PdfExtGState();
+				gs1.setFillOpacity(0.5f);
+				canvas.setExtGState(gs1);
 				new Canvas(canvas, pdfDoc, page.getPageSize()).setFontColor(ColorConstants.LIGHT_GRAY).setFontSize(60)
 						.setFont(font).showTextAligned(new Paragraph("WATERMARK"), 298, 421, pdfDoc.getPageNumber(page),
 								TextAlignment.CENTER, VerticalAlignment.MIDDLE, 45);
 			}
 		});
-		
-//		int number = pdfDoc.getNumberOfPages();
-//		for (int i = 1; i <= number; i++) {
-//			PdfPage page = pdfDoc.getPage(i);
-//			PdfFont font = null;
-//			try {
-//				font = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//			PdfCanvas canvas = new PdfCanvas(page.newContentStreamBefore(), page.getResources(), pdfDoc);
-//			new Canvas(canvas, pdfDoc, page.getPageSize()).setFontColor(ColorConstants.LIGHT_GRAY).setFontSize(60)
-//					.setFont(font).showTextAligned(new Paragraph("WATERMARK"), 298, 421, pdfDoc.getPageNumber(page),
-//							TextAlignment.CENTER, VerticalAlignment.MIDDLE, 45);
-//		}
+
 		pdfDoc.close();
 	}
 
-	public static void main(String[] args) throws IOException {
+	@SuppressWarnings("resource")
+	public static void manipulatePdf(String src, String dest) throws Exception {
+		PdfDocument pdfDoc = new PdfDocument(new PdfReader(src), new PdfWriter(dest));
+		pdfDoc.addEventHandler(PdfDocumentEvent.END_PAGE, new IEventHandler() {
+
+			@Override
+			public void handleEvent(Event event) {
+				PdfDocumentEvent docEvent = (PdfDocumentEvent) event;
+				PdfDocument pdfDoc = docEvent.getDocument();
+				PdfPage page = docEvent.getPage();
+				PdfCanvas under = new PdfCanvas(page.newContentStreamBefore(), page.getResources(), pdfDoc);
+
+				PdfFont font = null;
+				try {
+					font = PdfFontFactory.createFont(FontProgramFactory.createFont(StandardFonts.HELVETICA));
+				} catch (IOException e) {
+				}
+				Paragraph p = new Paragraph("This watermark is added UNDER the existing content").setFont(font)
+						.setFontSize(15);
+				new Canvas(under, pdfDoc, pdfDoc.getDefaultPageSize()).showTextAligned(p, 297, 550, 1,
+						TextAlignment.CENTER, VerticalAlignment.TOP, 0);
+				PdfCanvas over = new PdfCanvas(page);
+				over.setFillColor(ColorConstants.BLACK);
+				p = new Paragraph("This watermark is added ON TOP OF the existing content").setFont(font)
+						.setFontSize(15);
+				new Canvas(over, pdfDoc, pdfDoc.getDefaultPageSize()).showTextAligned(p, 297, 500, 1,
+						TextAlignment.CENTER, VerticalAlignment.TOP, 0);
+				p = new Paragraph("This TRANSPARENT watermark is added ON TOP OF the existing content").setFont(font)
+						.setFontSize(15);
+				over.saveState();
+				PdfExtGState gs1 = new PdfExtGState();
+				gs1.setFillOpacity(0.5f);
+				over.setExtGState(gs1);
+				new Canvas(over, pdfDoc, pdfDoc.getDefaultPageSize()).showTextAligned(p, 297, 450, 1,
+						TextAlignment.CENTER, VerticalAlignment.TOP, 0);
+				over.restoreState();
+			}
+		});
+
+		pdfDoc.close();
+	}
+
+	public static void main(String[] args) throws Exception {
 		String templatePdfPath = "D:/test/20191027/HeritageApply.pdf";
 		String destPdfPath = "D:/test/20191027/HeritageApply-replace.pdf";
 		String destPdfPath1 = "D:/test/20191027/HeritageApply-replace1.pdf";
-		replacePdf(templatePdfPath, destPdfPath, initFieldData());
-		addWatermark(destPdfPath, destPdfPath1);
+		 replacePdf(templatePdfPath, destPdfPath, initFieldData());
+		 addWatermark(destPdfPath, destPdfPath1);
+//		manipulatePdf(destPdfPath, destPdfPath1);
 
 	}
-
-	// /**
-	// * 替换变量
-	// *
-	// * @throws IOException
-	// * @throws FileNotFoundException
-	// */
-	// public static final void replacePdf(Map<String, String> params) throws
-	// FileNotFoundException, IOException {
-	//
-	// PdfDocument pdf = new PdfDocument(new
-	// PdfReader("D:/test/20191025/HeritageApply1.pdf"),
-	// new PdfWriter("D:/test/20191025/113.pdf"));
-	//
-	// if (params != null && !params.isEmpty()) {
-	// PdfAcroForm form = PdfAcroForm.getAcroForm(pdf, true);
-	//
-	// Map<String, PdfFormField> fields = form.getFormFields();
-	// for (String param : params.keySet()) {
-	// PdfFormField formField = fields.get(param);
-	// Rectangle rectangle =
-	// formField.getWidgets().get(0).getRectangle().toRectangle();
-	// System.out.println(param + "==" + rectangle.getX() + "," + rectangle.getY());
-	// if (formField != null) {
-	// if ("${heritage_photo}".equals(param)) { // 处理图片
-	// // PdfButtonFormField buttonFormField =
-	// // (PdfButtonFormField) formField;// 获取模板中的图片域
-	// // 把图片转成base64字符串
-	// // String str =
-	// // Base64.encodeBytes(image2Bytes("D:/test/20191025/image1.jpg"));
-	// // buttonFormField.setValue(str);// 把base64字符串赋值给图片域
-	// // buttonFormField.setImage("D:/test/20191025/image1.jpg");
-	// } else {
-	// formField.setValue(params.get(param), getDefaultFont(), fontSize);
-	// }
-	// }
-	// }
-	//
-	// form.flattenFields();// 锁定表单，不让修改
-	// }
-	//
-	// PdfCanvas canvas = new PdfCanvas(pdf.getPage(2));
-	// ImageData image = ImageDataFactory.create("D:/test/20191025/image1.jpg");
-	// canvas.addImage(image, 469.995f, 634.304f, true);
-	//
-	// // pdf.addEventHandler(PdfDocumentEvent.END_PAGE, handler);
-	//
-	// pdf.close();
-	// }
 }

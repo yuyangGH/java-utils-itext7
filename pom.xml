@@ -44,17 +44,6 @@
 			<version>7.1.8</version>
 			<type>pom</type>
 		</dependency>
-		<dependency>
-			<groupId>com.itextpdf</groupId>
-			<artifactId>html2pdf</artifactId>
-			<version>2.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.6.3</version>
-		</dependency>
-		<!-- itext end -->
 	</dependencies>
 
 	<build>
@@ -121,26 +110,5 @@
 			</plugin>
 
 		</plugins>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<excludes>
-					<exclude>profiles/**</exclude>
-				</excludes>
-			</resource>
-		</resources>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>dev</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<package.environment>dev</package.environment>
-			</properties>
-		</profile>
-	</profiles>
-
 </project>
