@@ -227,8 +227,8 @@ public class PDFUtils {
 	}
 
 	public static void main(String[] args) throws Exception {
-		String templatePath = "./src/main/resources/test.pdf";
-		String replaceTextFieldPath = "./src/main/resources/test_text.pdf";
+		String templatePath = "./src/main/resources/static/test.pdf";
+		String replaceTextFieldPath = "./src/main/resources/static/test_text.pdf";
 		// 替换文本域
 		Map<String, String> params = new HashMap<>();
 		params.put("name", "张三");
@@ -241,12 +241,12 @@ public class PDFUtils {
 
 		// 替换图片域
 		params.clear();
-		params.put("image", "1|./src/main/resources/image.jpg"); // 1表示图片插入PDF的第几页，后面是图片路径
-		String replaceImageFieldPath = "./src/main/resources/test_image.pdf";
+		params.put("image", "1|./src/main/resources/static/image.jpg"); // 1表示图片插入PDF的第几页，后面是图片路径
+		String replaceImageFieldPath = "./src/main/resources/static/test_image.pdf";
 		replaceImageFieldPdf(replaceTextFieldPath, replaceImageFieldPath, params);
 
 		// 添加水印
-		String watermarkPath = "./src/main/resources/test_watermark.pdf";
+		String watermarkPath = "./src/main/resources/static/test_watermark.pdf";
 		addWatermark(replaceImageFieldPath, watermarkPath, "GERENJIANLI");
 
 	}
