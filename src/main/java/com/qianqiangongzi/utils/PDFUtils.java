@@ -32,7 +32,7 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
 
 /**
- * PDF操作
+ * PDF操作，本文表单域替换，图片表单域替换，添加水印。
  * 
  * @author 谦谦公子爱编程
  *
@@ -80,7 +80,7 @@ public class PDFUtils {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public static final void replaceTextFieldPdf(String templatePdfPath, String destPdfPath, Map<String, String> params)
+	public static void replaceTextFieldPdf(String templatePdfPath, String destPdfPath, Map<String, String> params)
 			throws FileNotFoundException, IOException {
 		PdfDocument pdf = new PdfDocument(new PdfReader(templatePdfPath), new PdfWriter(destPdfPath));
 
@@ -111,7 +111,7 @@ public class PDFUtils {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public static final void replaceImageFieldPdf(String templatePdfPath, String destPdfPath,
+	public static void replaceImageFieldPdf(String templatePdfPath, String destPdfPath,
 			Map<String, String> params) throws FileNotFoundException, IOException {
 		PdfDocument pdf = new PdfDocument(new PdfReader(templatePdfPath), new PdfWriter(destPdfPath));
 
@@ -198,7 +198,7 @@ public class PDFUtils {
 	 * @throws FileNotFoundException
 	 */
 	@SuppressWarnings("resource")
-	public static final void addWatermark(String srcPdfPath, String destPdfPath, String watermarkText)
+	public static void addWatermark(String srcPdfPath, String destPdfPath, String watermarkText)
 			throws FileNotFoundException, IOException {
 		PdfDocument pdfDoc = new PdfDocument(new PdfReader(srcPdfPath), new PdfWriter(destPdfPath));
 
