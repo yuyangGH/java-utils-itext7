@@ -210,7 +210,7 @@ public class PDFUtils {
 				PdfPage page = docEvent.getPage();
 				PdfFont font = null;
 				try {
-					font = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
+					font = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD); // 要显示中文水印的话，需要设置中文字体，这里可以动态判断
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -242,6 +242,7 @@ public class PDFUtils {
 		// 替换图片域
 		params.clear();
 		params.put("image", "1|./src/main/resources/static/image.jpg"); // 1表示图片插入PDF的第几页，后面是图片路径
+		params.put("image2", "1|./src/main/resources/static/image2.jpg");
 		String replaceImageFieldPath = "./src/main/resources/static/test_image.pdf";
 		replaceImageFieldPdf(replaceTextFieldPath, replaceImageFieldPath, params);
 
